@@ -120,7 +120,6 @@ public class Floor {
 
             if (room is Triangle)
             {
-                Triangle r = (Triangle)room;
                 while (!room.PrevRoom[cardinal]) cardinal++;
                 aux = room.CorridorCreator(cardinal);
 

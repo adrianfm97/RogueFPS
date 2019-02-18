@@ -30,7 +30,7 @@ public class Properties : MonoBehaviour
                       rShortWall, rWallC, rLargeWall, rWallCL, rWallCR, rWall2C, tWallC, tWallLat;
     //Floors
     [SerializeField]
-    private GameObject square, square2, rectangleV, rectangleH, triangle, hexagonal, corridor;
+    private GameObject square, square2, rectangleV, rectangleH, triangle, hexagonal, octagon, corridor;
 
     //Map
     [SerializeField]
@@ -503,6 +503,18 @@ public class Properties : MonoBehaviour
         set
         {
             probHexa = value;
+        }
+    }
+    public GameObject Octagon
+    {
+        get
+        {
+            return octagon;
+        }
+
+        set
+        {
+            octagon = value;
         }
     }
 }

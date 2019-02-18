@@ -80,10 +80,9 @@ public class Triangle : Room
         return aux;
     }
     public override void WallsCreator(){
-        GameObject aux;
-        aux = GameObject.Instantiate(properties.TWallC, posRoom, rotation, gameObjectScene.transform);
+        GameObject.Instantiate(properties.TWallC, posRoom, rotation, gameObjectScene.transform);
 
-        aux = GameObject.Instantiate(properties.TWallLat, posRoom, rotation, gameObjectScene.transform);
+        GameObject.Instantiate(properties.TWallLat, posRoom, rotation, gameObjectScene.transform);
 
     }
 

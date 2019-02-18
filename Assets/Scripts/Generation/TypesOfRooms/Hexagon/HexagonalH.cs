@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HexagonalH : Room
 {
-    private Vector3[] _posSubRooms = new Vector3[6];
+    private Vector3[] posSubRooms = new Vector3[6];
     private Vector3[] posCorridors = new Vector3[6];
 
     public HexagonalH(Vector3 pos, bool[] preR, int n) : base(pos, preR, n)
@@ -25,19 +25,19 @@ public class HexagonalH : Room
         for (int i = 0; i < 6; i++) { canCreateRect[i] = true; }
         for (int i = 0; i < 4; i++) { canCreateSq2[i] = true; }
 
-        PosSubRooms[0] = new Vector3(-sDiv2, 0, size) + pos;
-        PosSubRooms[1] = new Vector3(sDiv2, 0, size) + pos;
-        PosSubRooms[2] = new Vector3(-sDiv2, 0, 0) + pos;
-        PosSubRooms[3] = new Vector3(sDiv2, 0, 0) + pos;
-        PosSubRooms[4] = new Vector3(-sDiv2, 0, -size) + pos;
-        PosSubRooms[5] = new Vector3(-sDiv2, 0, size) + pos;
+        posSubRooms[0] = new Vector3(-sDiv2, 0, size) + pos;
+        posSubRooms[1] = new Vector3(sDiv2, 0, size) + pos;
+        posSubRooms[2] = new Vector3(-sDiv2, 0, 0) + pos;
+        posSubRooms[3] = new Vector3(sDiv2, 0, 0) + pos;
+        posSubRooms[4] = new Vector3(-sDiv2, 0, -size) + pos;
+        posSubRooms[5] = new Vector3(-sDiv2, 0, size) + pos;
 
-        PosCorridors[0] = posRoom + new Vector3(-sDiv2, 0, sBy1dot5);
-        PosCorridors[1] = posRoom + new Vector3(size, 0, size);
-        PosCorridors[2] = posRoom + new Vector3(size, 0, -size);
-        PosCorridors[3] = posRoom + new Vector3(sDiv2, 0, -sBy1dot5);
-        PosCorridors[4] = posRoom + new Vector3(-sDiv2, 0, -sBy1dot5);
-        PosCorridors[5] = posRoom + new Vector3(size, 0, size);
+        posCorridors[0] = posRoom + new Vector3(-sDiv2, 0, sBy1dot5);
+        posCorridors[1] = posRoom + new Vector3(size, 0, size);
+        posCorridors[2] = posRoom + new Vector3(size, 0, -size);
+        posCorridors[3] = posRoom + new Vector3(sDiv2, 0, -sBy1dot5);
+        posCorridors[4] = posRoom + new Vector3(-sDiv2, 0, -sBy1dot5);
+        posCorridors[5] = posRoom + new Vector3(size, 0, size);
 
         gameObjectScene = GameObject.Instantiate(properties.Hexagonal, pos,
                                             Quaternion.identity, properties.Rooms.transform);
@@ -310,12 +310,12 @@ public class HexagonalH : Room
     {
         get
         {
-            return _posSubRooms;
+            return posSubRooms;
         }
 
         set
         {
-            _posSubRooms = value;
+            posSubRooms = value;
         }
     }
 }

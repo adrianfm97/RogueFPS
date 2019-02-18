@@ -403,6 +403,7 @@ public class Square : Room
         }
         return aux;
     }
+
     public override void WallsCreator()
     {
         GameObject aux;
