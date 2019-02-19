@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class Square : Room
 {
+
     public Square(Vector3 pos, bool[] preR, int n) : base(pos, preR, n)
     {
 
         canCreateSq = new bool[4];
         canCreateRect = new bool[12];
         canCreateSq2 = new bool[8];
-        CanCreateHexa = new bool[4];
+        canCreateHexa = new bool[4];
+        canCreateOcto = new bool[4];
         corridors = new bool[4];
 
         for (int i = 0; i <= 3; i++)
         {
             canCreateSq[i] = true;
-            CanCreateHexa[i] = false;
+            canCreateHexa[i] = false;
+            canCreateOcto[i] = true;
             corridors[i] = false;            
         }
         for (int i = 0; i <= 11; i++) { canCreateRect[i] = true; }
@@ -106,7 +109,29 @@ public class Square : Room
                     posRoom + new Vector3(-sBy2, 0, size) == posRooms[i]) { canCreateSq2[7] = false; }
             }
             else { canCreateSq2[6] = false; canCreateSq2[7] = false; }
+
+            //Octo
+            if (posRoom + new Vector3(-size, 0, sBy3)  == posRooms[i] ||
+                posRoom + new Vector3(0,     0, sBy3) == posRooms[i] ||
+                posRoom + new Vector3(size,  0, sBy3) == posRooms[i]) { canCreateOcto[0] = false; }
+
+            if (posRoom + new Vector3(sBy3, 0, size) == posRooms[i] ||
+                posRoom + new Vector3(sBy3, 0, 0) == posRooms[i] ||
+                posRoom + new Vector3(sBy3, 0, -size) == posRooms[i]) { canCreateOcto[1] = false; }
+
+            if (posRoom + new Vector3(size,  0, -sBy3) == posRooms[i] ||
+                posRoom + new Vector3(0,     0, -sBy3) == posRooms[i] ||
+                posRoom + new Vector3(-size, 0, -sBy3) == posRooms[i]) { canCreateOcto[2] = false; }
+
+            if (posRoom + new Vector3(-sBy3, 0, -size) == posRooms[i] ||
+                posRoom + new Vector3(-sBy3, 0, 0) == posRooms[i] ||
+                posRoom + new Vector3(-sBy3, 0, size) == posRooms[i]) { canCreateOcto[3] = false; }
         }
+
+        if (canCreateOcto[0] && !canCreateSq2[0] || !canCreateSq2[1]) { canCreateOcto[0] = false; }
+        if (canCreateOcto[1] && !canCreateSq2[1] || !canCreateSq2[3]) { canCreateOcto[1] = false; }
+        if (canCreateOcto[2] && !canCreateSq2[2] || !canCreateSq2[5]) { canCreateOcto[2] = false; }
+        if (canCreateOcto[3] && !canCreateSq2[3] || !canCreateSq2[7]) { canCreateOcto[3] = false; }
 
         //Hexa
         if (canCreateSq2[0] && canCreateSq2[1]) { CanCreateHexa[0] = true; }
@@ -118,12 +143,14 @@ public class Square : Room
         posibilitiesSq = 0;
         posibilitiesRect = 0;
         posibilitiesSq2 = 0;
-        PosibilitiesHexa = 0;
+        posibilitiesHexa = 0;
+        posibilitiesOcto = 0;
 
         for (int i = 0; i <= 3; i++)
         {
             if (canCreateSq[i]) posibilitiesSq++;
-            if (CanCreateHexa[i]) PosibilitiesHexa++;
+            if (canCreateHexa[i]) posibilitiesHexa++;
+            if (canCreateOcto[i]) posibilitiesOcto++;
         }
         for (int i = 0; i <= 11; i++) if (canCreateRect[i]) posibilitiesRect++;
         for (int i = 0; i <= 7; i++) if (canCreateSq2[i]) posibilitiesSq2++;

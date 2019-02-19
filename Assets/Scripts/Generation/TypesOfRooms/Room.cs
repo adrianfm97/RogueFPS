@@ -22,9 +22,9 @@ public abstract class Room
                      canCreateRect, canCreateSq2, canCreateHexa;
 
     protected int posibilitiesSq = 0, posibilitiesRect = 0, posibilitiesSq2 = 0, 
-                  posibilitiesHexa = 0;
+                  posibilitiesHexa = 0, posibilitiesOcto = 0;
 
-    protected float size, sBy1dot5, sBy2, sBy2Dot5, sDiv2;
+    protected float size, sBy1dot5, sBy2, sBy2Dot5, sDiv2, sBy3, sBy3Dot5;
 
     public Room(Vector3 pos, bool[] preR, int n)
     {
@@ -60,6 +60,7 @@ public abstract class Room
     public abstract VectArrayBoolInt Sq2Creator(int cardinal);
     public abstract VectArrayBoolInt TriCreator(int cardinal);
     public abstract VectArrayBoolInt HexaCreator(int cardinal);
+    public abstract VectArrayBoolInt OctoCreator(int cardinal);
     public abstract VectQuater CorridorCreator(int cardinal);
     public abstract void WallsCreator();
 
@@ -248,6 +249,30 @@ public abstract class Room
         set
         {
             canCreateHexa = value;
+        }
+    }
+    public bool[] CanCreateOcto
+    {
+        get
+        {
+            return canCreateOcto;
+        }
+
+        set
+        {
+            canCreateOcto = value;
+        }
+    }
+    public int PosibilitiesOcto
+    {
+        get
+        {
+            return posibilitiesOcto;
+        }
+
+        set
+        {
+            posibilitiesOcto = value;
         }
     }
 }
