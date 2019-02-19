@@ -12,7 +12,8 @@ public class RectangleH : Room
         canCreateSq = new bool[6];
         canCreateRect = new bool[16];
         canCreateSq2 = new bool[10];
-        CanCreateHexa = new bool[6];
+        canCreateHexa = new bool[6];
+        canCreateOcto = new bool[6];
 
         corridors = new bool[6];
 
@@ -20,7 +21,8 @@ public class RectangleH : Room
         {
             canCreateSq[i] = true;
             corridors[i] = false;
-            CanCreateHexa[i] = false;
+            canCreateHexa[i] = false;
+            canCreateOcto[i] = true;
         }
         for (int i = 0; i <= 15; i++) { canCreateRect[i] = true; }
         for (int i = 0; i <= 9; i++) { canCreateSq2[i] = true; }
@@ -130,7 +132,37 @@ public class RectangleH : Room
                     posRoom + new Vector3(-sBy2Dot5, 0, size) == posRooms[i]) canCreateSq2[9] = false;
             }
             else { canCreateSq2[8] = false; canCreateSq2[9] = false; }
+
+            //Octo
+            if (posRoom + new Vector3(sDiv2, 0, sBy3) == posRooms[i] ||
+                posRoom + new Vector3(-sDiv2, 0, sBy3) == posRooms[i]) { canCreateOcto[0] = false; canCreateOcto[1] = false; }
+            else if (posRoom + new Vector3(-sBy1dot5, 0, sBy3) == posRooms[i]) { canCreateOcto[0] = false; }
+            else if (posRoom + new Vector3(sBy1dot5, 0, sBy3) == posRooms[i]) { canCreateOcto[1] = false; }
+
+            if (posRoom + new Vector3(sBy3Dot5, 0, size) == posRooms[i] ||
+                posRoom + new Vector3(sBy3Dot5, 0, 0) == posRooms[i]||
+                posRoom + new Vector3(sBy3Dot5, 0, -size) == posRooms[i]) { canCreateOcto[2] = false; }
+
+            if (posRoom + new Vector3(sDiv2, 0, -sBy3) == posRooms[i] ||
+                posRoom + new Vector3(-sDiv2, 0, -sBy3) == posRooms[i]) { canCreateOcto[3] = false; canCreateOcto[4] = false; }
+            else if (posRoom + new Vector3(sBy1dot5, 0, -sBy3) == posRooms[i]) { canCreateOcto[3] = false; }
+            else if (posRoom + new Vector3(-sBy1dot5, 0, -sBy3) == posRooms[i]) { canCreateOcto[4] = false; }
+            
+
+            if (posRoom + new Vector3(-sBy3Dot5, 0, size) == posRooms[i] ||
+                posRoom + new Vector3(-sBy3Dot5, 0, 0) == posRooms[i] ||
+                posRoom + new Vector3(-sBy3Dot5, 0, -size) == posRooms[i]) { canCreateOcto[2] = false; }
+
         }
+
+        if (canCreateOcto[0] && !canCreateSq2[0] || !canCreateSq2[1]) { canCreateOcto[0] = false; }
+        if (canCreateOcto[1] && !canCreateSq2[1] || !canCreateSq2[2]) { canCreateOcto[1] = false; }
+        if (canCreateOcto[2] && !canCreateSq2[3] || !canCreateSq2[4]) { canCreateOcto[2] = false; }
+        if (canCreateOcto[3] && !canCreateSq2[5] || !canCreateSq2[6]) { canCreateOcto[3] = false; }
+        if (canCreateOcto[4] && !canCreateSq2[6] || !canCreateSq2[7]) { canCreateOcto[4] = false; }
+        if (canCreateOcto[5] && !canCreateSq2[8] || !canCreateSq2[9]) { canCreateOcto[5] = false; }
+
+        //Hexa
 
         if (canCreateSq2[0] && canCreateSq2[1]) CanCreateHexa[0] = true;
         if (canCreateSq2[1] && canCreateSq2[2]) CanCreateHexa[1] = true;
@@ -142,12 +174,14 @@ public class RectangleH : Room
         posibilitiesSq = 0;
         posibilitiesRect = 0;
         posibilitiesSq2 = 0;
-        PosibilitiesHexa = 0;
+        posibilitiesHexa = 0;
+        posibilitiesOcto = 0;
 
         for (int i = 0; i <= 5; i++)
         {
             if (canCreateSq[i]) posibilitiesSq++;
-            if (CanCreateHexa[i]) PosibilitiesHexa++;
+            if (canCreateHexa[i]) posibilitiesHexa++;
+            if (canCreateOcto[i]) posibilitiesOcto++;
         }
         for (int i = 0; i <= 15; i++) if (canCreateRect[i]) posibilitiesRect++;
         for (int i = 0; i <= 9; i++) if (canCreateSq2[i]) posibilitiesSq2++;

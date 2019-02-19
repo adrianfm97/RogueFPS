@@ -12,7 +12,8 @@ public class RectangleV : Room
         canCreateSq = new bool[6];
         canCreateRect = new bool[16];
         canCreateSq2 = new bool[10];
-        CanCreateHexa = new bool[6];
+        canCreateHexa = new bool[6];
+        canCreateOcto = new bool[6];
 
         corridors = new bool[6];
 
@@ -20,7 +21,8 @@ public class RectangleV : Room
         {
             canCreateSq[i] = true;
             corridors[i] = false;
-            CanCreateHexa[i] = false;
+            canCreateOcto[i] = true;
+            canCreateHexa[i] = false;
         }
         for (int i = 0; i <= 15; i++) { canCreateRect[i] = true; }
         for (int i = 0; i <= 9; i++) { canCreateSq2[i] = true; }
@@ -130,8 +132,35 @@ public class RectangleV : Room
                 if (posRoom + new Vector3(-sBy2, 0, sBy1dot5) == posRooms[i]) canCreateSq2[9] = false;
             }
             else { canCreateSq2[9] = false; }
+
+            //Octo
+            if (posRoom + new Vector3(size,  0, sBy3Dot5) == posRooms[i] ||
+                posRoom + new Vector3(0,     0, sBy3Dot5) == posRooms[i] ||
+                posRoom + new Vector3(-size, 0, sBy3Dot5) == posRooms[i]) { canCreateOcto[0] = false; }
+
+            if (posRoom + new Vector3(sBy3, 0, sDiv2) == posRooms[i] ||
+                posRoom + new Vector3(sBy3, 0, -sDiv2) == posRooms[i]) { canCreateOcto[1] = false; canCreateOcto[2] = false; }
+            else if (posRoom + new Vector3(sBy3, 0, sBy1dot5) == posRooms[i]) { canCreateOcto[1] = false; }
+            else if (posRoom + new Vector3(sBy3, 0, -sBy1dot5) == posRooms[i]) { canCreateOcto[2] = false; }
+
+            if (posRoom + new Vector3(size,  0, -sBy3Dot5) == posRooms[i] ||
+                posRoom + new Vector3(0,     0, -sBy3Dot5) == posRooms[i] ||
+                posRoom + new Vector3(-size, 0, -sBy3Dot5) == posRooms[i]) { canCreateOcto[3] = false; }
+
+            if (posRoom + new Vector3(-sBy3, 0, sDiv2) == posRooms[i] ||
+                posRoom + new Vector3(-sBy3, 0, -sDiv2) == posRooms[i]) { canCreateOcto[4] = false; canCreateOcto[5] = false; }
+            else if (posRoom + new Vector3(-sBy3, 0, -sBy1dot5) == posRooms[i]) { canCreateOcto[4] = false; }
+            else if (posRoom + new Vector3(-sBy3, 0, sBy1dot5) == posRooms[i]) { canCreateOcto[5] = false; }
         }
 
+        if (canCreateOcto[0] && !canCreateSq2[0] || !canCreateSq2[1]) { canCreateOcto[0] = false; }
+        if (canCreateOcto[1] && !canCreateSq2[2] || !canCreateSq2[3]) { canCreateOcto[1] = false; }
+        if (canCreateOcto[2] && !canCreateSq2[3] || !canCreateSq2[4]) { canCreateOcto[2] = false; }
+        if (canCreateOcto[3] && !canCreateSq2[5] || !canCreateSq2[6]) { canCreateOcto[3] = false; }
+        if (canCreateOcto[4] && !canCreateSq2[7] || !canCreateSq2[8]) { canCreateOcto[4] = false; }
+        if (canCreateOcto[5] && !canCreateSq2[8] || !canCreateSq2[9]) { canCreateOcto[5] = false; }
+
+        //Hexa
         if (canCreateSq2[0] && canCreateSq2[1]) CanCreateHexa[0] = true;
         if (canCreateSq2[2] && canCreateSq2[3]) CanCreateHexa[1] = true;
         if (canCreateSq2[3] && canCreateSq2[4]) CanCreateHexa[2] = true;

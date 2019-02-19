@@ -129,10 +129,10 @@ public class Square : Room
         }
 
         if (canCreateOcto[0] && !canCreateSq2[0] || !canCreateSq2[1]) { canCreateOcto[0] = false; }
-        if (canCreateOcto[1] && !canCreateSq2[1] || !canCreateSq2[3]) { canCreateOcto[1] = false; }
-        if (canCreateOcto[2] && !canCreateSq2[2] || !canCreateSq2[5]) { canCreateOcto[2] = false; }
-        if (canCreateOcto[3] && !canCreateSq2[3] || !canCreateSq2[7]) { canCreateOcto[3] = false; }
-
+        if (canCreateOcto[1] && !canCreateSq2[2] || !canCreateSq2[3]) { canCreateOcto[1] = false; }
+        if (canCreateOcto[2] && !canCreateSq2[4] || !canCreateSq2[5]) { canCreateOcto[2] = false; }
+        if (canCreateOcto[3] && !canCreateSq2[6] || !canCreateSq2[7]) { canCreateOcto[3] = false; }
+        
         //Hexa
         if (canCreateSq2[0] && canCreateSq2[1]) { CanCreateHexa[0] = true; }
         if (canCreateSq2[2] && canCreateSq2[3]) { CanCreateHexa[1] = true; }

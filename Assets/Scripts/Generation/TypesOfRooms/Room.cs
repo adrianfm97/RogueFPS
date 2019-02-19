@@ -19,7 +19,7 @@ public abstract class Room
     private int numColiRooms = 0;
 
     protected bool[] prevRoom, corridors, canCreateSq,
-                     canCreateRect, canCreateSq2, canCreateHexa;
+                     canCreateRect, canCreateSq2, canCreateHexa, canCreateOcto;
 
     protected int posibilitiesSq = 0, posibilitiesRect = 0, posibilitiesSq2 = 0, 
                   posibilitiesHexa = 0, posibilitiesOcto = 0;
