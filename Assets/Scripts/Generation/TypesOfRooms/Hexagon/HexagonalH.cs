@@ -12,14 +12,16 @@ public class HexagonalH : Room
         canCreateSq = new bool[2];
         canCreateRect = new bool[6];
         canCreateSq2 = new bool[4];
-        CanCreateHexa = new bool[2];
+        canCreateHexa = new bool[2];
+        canCreateOcto = new bool[2];
 
         corridors = new bool[2];
 
         for (int i = 0; i < 2; i++)
         {
             canCreateSq[i] = true;
-            CanCreateHexa[i] = false;
+            canCreateHexa[i] = false;
+            canCreateOcto[i] = true;
             corridors[i] = false;
         }
         for (int i = 0; i < 6; i++) { canCreateRect[i] = true; }
@@ -97,7 +99,19 @@ public class HexagonalH : Room
                 else { canCreateSq2[3] = false; }
             }
             else { canCreateSq2[2] = false; canCreateSq2[3] = false; }
+
+            //Octo
+            if (posRoom + new Vector3(sBy3, 0, size) == posRooms[i] ||
+                posRoom + new Vector3(sBy3, 0, 0) == posRooms[i] ||
+                posRoom + new Vector3(sBy3, 0, -size) == posRooms[i]) { canCreateOcto[0] = false; }
+            if (posRoom + new Vector3(-sBy3, 0, size) == posRooms[i] ||
+                posRoom + new Vector3(-sBy3, 0, 0) == posRooms[i] ||
+                posRoom + new Vector3(-sBy3, 0, -size) == posRooms[i]) { canCreateOcto[1] = false; }
         }
+
+        if(canCreateOcto[0] && !canCreateSq2[0] || !canCreateSq2[1]) { canCreateOcto[0] = false; }
+        if (canCreateOcto[1] && !canCreateSq2[2] || !canCreateSq2[3]) { canCreateOcto[1] = false; }
+
         //
         if (canCreateSq2[0] && canCreateSq2[1]) { CanCreateHexa[0] = true; }
         if (canCreateSq2[2] && canCreateSq2[3]) { CanCreateHexa[1] = true; }
@@ -105,11 +119,13 @@ public class HexagonalH : Room
         posibilitiesSq = 0;
         posibilitiesRect = 0;
         posibilitiesSq2 = 0;
-        PosibilitiesHexa = 0;
+        posibilitiesHexa = 0;
+        posibilitiesOcto = 0;
 
         for (int i = 0; i <= 1; i++) {
             if (canCreateSq[i]) posibilitiesSq++;
-            if (CanCreateHexa[i]) PosibilitiesHexa++;
+            if (canCreateHexa[i]) posibilitiesHexa++;
+            if (canCreateOcto[i]) posibilitiesOcto++; 
         }
         for (int i = 0; i <= 5; i++) if (canCreateRect[i]) posibilitiesRect++;
         for (int i = 0; i <= 3; i++) if (canCreateSq2[i]) posibilitiesSq2++;
@@ -264,6 +280,29 @@ public class HexagonalH : Room
                 auxStruct.vector3 = (new Vector3(posRoom.x - sBy2,
                                                  posRoom.y, posRoom.z));
                 auxStruct.arrayBool = new bool[] { true, false };
+                break;
+
+        }
+        return auxStruct;
+    }
+    public override VectArrayBoolInt OctoCreator(int cardinal)
+    {
+        VectArrayBoolInt auxStruct;
+        auxStruct.arrayBool = new bool[4];
+        auxStruct.vector3 = new Vector3(0, 0, 0);
+        auxStruct.innt = 6;
+
+        switch (cardinal)
+        {
+            case 0:
+                auxStruct.vector3 = (new Vector3(posRoom.x + sBy2Dot5,
+                                                 posRoom.y, posRoom.z));
+                auxStruct.arrayBool = new bool[] { false, false, false, true };
+                break;
+            case 1:
+                auxStruct.vector3 = (new Vector3(posRoom.x - sBy2Dot5,
+                                                 posRoom.y, posRoom.z));
+                auxStruct.arrayBool = new bool[] { false, true, false, false };
                 break;
 
         }

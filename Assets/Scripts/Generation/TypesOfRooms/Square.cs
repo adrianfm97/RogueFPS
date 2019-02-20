@@ -404,6 +404,41 @@ public class Square : Room
         }
         return auxStruct;
     }
+    public override VectArrayBoolInt OctoCreator(int cardinal)
+    {
+        VectArrayBoolInt auxStruct;
+        auxStruct.arrayBool = new bool[4];
+        auxStruct.vector3 = new Vector3(0, 0, 0);
+        auxStruct.innt = 6;
+
+        switch (cardinal)
+        {
+
+
+            case 0:
+                auxStruct.vector3 = (new Vector3(posRoom.x, posRoom.y,
+                                                 posRoom.z + sBy2));
+                auxStruct.arrayBool = new bool[] { false, false, true, false };
+                break;
+            case 1:
+                auxStruct.vector3 = (new Vector3(posRoom.x + sBy2,
+                                                 posRoom.y, posRoom.z));
+                auxStruct.arrayBool = new bool[] { false, false, false, true };
+                break;
+            case 2:
+                auxStruct.vector3 = (new Vector3(posRoom.x, posRoom.y,
+                                                 posRoom.z - sBy2));
+                auxStruct.arrayBool = new bool[] { true, false, false, false };
+                break;
+            case 3:
+                auxStruct.vector3 = (new Vector3(posRoom.x - sBy2,
+                                                 posRoom.y, posRoom.z));
+                auxStruct.arrayBool = new bool[] { false, true, false, false };
+                break;
+
+        }
+        return auxStruct;
+    }
     public override VectQuater CorridorCreator(int cardinal)
     {
 

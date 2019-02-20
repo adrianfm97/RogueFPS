@@ -9,7 +9,7 @@ public class Floor {
     private int roomCounter;
 
     public Vector3[] posRooms, posCorr, posNoCorr;
-    private int rInitialized, cInitialized, nCInitialized;
+    public int rInitialized, cInitialized, nCInitialized;
 
     private Properties properties;    
 
@@ -90,6 +90,20 @@ public class Floor {
             for (int i = 0; i <= 5; i++)
             {
                 posNoCorr[nCInitialized] = auxHexagonalH.PosCorridors[i];
+                nCInitialized++;
+            }
+        }
+        else if (r is Octagon)
+        {
+            Octagon auxOctagon = (Octagon)r;
+            for (int i = 0; i <= 8; i++)
+            {
+                posRooms[rInitialized] = auxOctagon.PosSubRooms[i];
+                rInitialized++;
+            }
+            for (int i = 0; i <= 7; i++)
+            {
+                posNoCorr[nCInitialized] = auxOctagon.PosCorridors[i];
                 nCInitialized++;
             }
         }

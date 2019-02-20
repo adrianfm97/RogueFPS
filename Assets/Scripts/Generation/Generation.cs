@@ -19,7 +19,7 @@ public class Generation : MonoBehaviour {
         Floor.AddRoom(new Square(new Vector3(0, 0, 0),
                                  new bool[] { false, false, true, false }, 0));
         
-        for (int i = 1; i < properties.NumRoom; i++)
+        for (int i = 1; i < properties.NumRoom - 1; i++)
         {
             aux = CardinalSelector(RoomSelector(i - 1));
 
@@ -61,6 +61,8 @@ public class Generation : MonoBehaviour {
                     break;
             }
         }
+        BossRoomSelector();
+        //Floor.AddRoom(new Octagon(aux.vector3, aux.arrayBool, properties.NumRoom));
         Floor.AddCorridors();        
         Floor.AddWalls();
     }
@@ -213,6 +215,47 @@ public class Generation : MonoBehaviour {
         else if (rand <= properties.ProbTri + properties.ProbSq2
                  + properties.ProbRect) return 3;
         else return 0;
+    }
+
+    private void BossRoomSelector() {
+        int[] furtherRooms = { 0, 0, 0 };
+        float[] lengthRooms = { 0, 0, 0 };
+
+        foreach (Room room in floor.Rooms) {
+            if (room is Triangle) continue;
+            room.ActualizeCanCreate(ref Floor.posRooms, Floor.rInitialized);
+            Debug.Log(room.Num + ": Octo-" + room.PosibilitiesOcto + "  Sq2-" + room.PosibilitiesSq2);
+            /*
+            float lengthRoom = room.PosRoom.magnitude;
+            Debug.Log(lengthRoom);
+            if (room.PosibilitiesOcto > 0 && lengthRoom > lengthRooms[0]) {
+                furtherRooms[0] = room.Num;
+                lengthRooms[0] = room.PosRoom.magnitude;
+            }
+            else if (room.PosibilitiesOcto > 0 && lengthRoom > lengthRooms[1]) {
+                furtherRooms[1] = room.Num;
+                lengthRooms[1] = room.PosRoom.magnitude;
+            }
+            else if (room.PosibilitiesOcto > 0 && lengthRoom > lengthRooms[2]) {
+                furtherRooms[2] = room.Num;
+                lengthRooms[2] = room.PosRoom.magnitude;
+            }*/
+        }
+       /* Room preBossRoom = floor.Rooms[furtherRooms[(int) Random.Range(0, 3)]];
+
+        Debug.Log(preBossRoom.Num);
+
+        int octoMax = 4;
+        if (preBossRoom is RectangleV || preBossRoom is RectangleH) octoMax = 6;
+        else if (preBossRoom is HexagonalH || preBossRoom is HexagonalV) octoMax = 2;
+        else if (preBossRoom is Square2) octoMax = 8;
+
+        int rand;
+        int i = 0;
+        do { rand = Random.Range(0, octoMax); i++; if (i > 10) break; }
+        while (!preBossRoom.CanCreateOcto[rand]);
+        Debug.Log(furtherRooms[0] +" "+furtherRooms[1]+" "+furtherRooms[2]);
+        return preBossRoom.RectCreator(rand);*/
     }
 
     public Floor Floor

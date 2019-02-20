@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Square2 : Room
 {
-
     private Vector3[] _posSubRooms = new Vector3[4];
 
     public Square2(Vector3 pos, bool[] preR, int n) : base(pos, preR, n)
@@ -13,6 +12,7 @@ public class Square2 : Room
         canCreateRect = new bool[20];
         canCreateSq2 = new bool[12];
         canCreateHexa = new bool[8];
+        canCreateOcto = new bool[8];
 
         corridors = new bool[8];
 
@@ -215,6 +215,7 @@ public class Square2 : Room
         posibilitiesRect = 0;
         posibilitiesSq2 = 0;
         posibilitiesHexa = 0;
+        posibilitiesOcto = 0;
 
         for (int i = 0; i <= 7; i++) {
             if (canCreateSq[i]) posibilitiesSq++;
@@ -595,6 +596,58 @@ public class Square2 : Room
                                                  posRoom.y, posRoom.z + sDiv2));
                 auxStruct.arrayBool = new bool[] { true, false };
                 auxStruct.innt = 5;
+                break;
+        }
+        return auxStruct;
+    }
+    public override VectArrayBoolInt OctoCreator(int cardinal)
+    {
+        VectArrayBoolInt auxStruct;
+        auxStruct.arrayBool = new bool[4];
+        auxStruct.vector3 = new Vector3(0, 0, 0);
+        auxStruct.innt = 6;
+        switch (cardinal)
+        {
+            case 0:
+                auxStruct.vector3 = (new Vector3(posRoom.x - sDiv2, posRoom.y,
+                                                 posRoom.z + sBy2Dot5));
+                auxStruct.arrayBool = new bool[] { false, false, true, false };
+                break;
+            case 1:
+                auxStruct.vector3 = (new Vector3(posRoom.x + sDiv2,
+                                                 posRoom.y, posRoom.z + sBy2Dot5));
+                auxStruct.arrayBool = new bool[] { false, false, true, false };
+                break;
+            case 2:
+                auxStruct.vector3 = (new Vector3(posRoom.x + sBy2Dot5, posRoom.y,
+                                                 posRoom.z + sDiv2));
+                auxStruct.arrayBool = new bool[] { false, false, false, true };
+
+                break;
+            case 3:
+                auxStruct.vector3 = (new Vector3(posRoom.x + sBy2Dot5,
+                                                 posRoom.y, posRoom.z - sDiv2));
+                auxStruct.arrayBool = new bool[] { false, false, false, true };
+                break;
+            case 4:
+                auxStruct.vector3 = (new Vector3(posRoom.x + sDiv2, posRoom.y,
+                                                 posRoom.z - sBy2Dot5));
+                auxStruct.arrayBool = new bool[] { true, false, false, false };
+                break;
+            case 5:
+                auxStruct.vector3 = (new Vector3(posRoom.x - sDiv2,
+                                                 posRoom.y, posRoom.z - sBy2Dot5));
+                auxStruct.arrayBool = new bool[] { true, false, false, false };
+                break;
+            case 6:
+                auxStruct.vector3 = (new Vector3(posRoom.x - sBy2Dot5, posRoom.y,
+                                                 posRoom.z - sDiv2));
+                auxStruct.arrayBool = new bool[] { false, true, false, false };
+                break;
+            case 7:
+                auxStruct.vector3 = (new Vector3(posRoom.x - sBy2Dot5,
+                                                 posRoom.y, posRoom.z + sDiv2));
+                auxStruct.arrayBool = new bool[] { false, true, false, false };
                 break;
         }
         return auxStruct;

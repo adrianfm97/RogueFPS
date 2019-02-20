@@ -56,7 +56,6 @@ public class Triangle : Room
     }
     public override VectArrayBoolInt OctoCreator(int cardinal)
     {
-        Debug.Log("Can't create an Octogonal Room from Room" + num);
         throw new System.NotImplementedException();
     }
     public override VectQuater CorridorCreator(int cardinal)
