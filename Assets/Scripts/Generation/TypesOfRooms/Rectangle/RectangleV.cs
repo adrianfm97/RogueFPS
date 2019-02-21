@@ -27,8 +27,8 @@ public class RectangleV : Room
         for (int i = 0; i <= 15; i++) { canCreateRect[i] = true; }
         for (int i = 0; i <= 9; i++) { canCreateSq2[i] = true; }
 
-        posSubRooms[0] = new Vector3(0, 0, sDiv2) + pos;
-        posSubRooms[1] = new Vector3(0, 0, -size / 2) + pos;
+        posSubRooms[0] = new Vector3(0, 0,  sDiv2) + pos;
+        posSubRooms[1] = new Vector3(0, 0, -sDiv2) + pos;
 
         gameObjectScene = GameObject.Instantiate(properties.RectangleV, pos,
                                             Quaternion.identity, properties.Rooms.transform);
@@ -161,6 +161,7 @@ public class RectangleV : Room
         if (canCreateOcto[5] && !canCreateSq2[8] || !canCreateSq2[9]) { canCreateOcto[5] = false; }
 
         //Hexa
+        for (int i = 0; i < 6; i++) canCreateHexa[i] = false;
         if (canCreateSq2[0] && canCreateSq2[1]) CanCreateHexa[0] = true;
         if (canCreateSq2[2] && canCreateSq2[3]) CanCreateHexa[1] = true;
         if (canCreateSq2[3] && canCreateSq2[4]) CanCreateHexa[2] = true;

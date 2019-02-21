@@ -112,7 +112,7 @@ public class Floor {
             Square2 auxSquare2 = (Square2)r;
             for (int i = 0; i <= 3; i++)
             {
-                posRooms[rInitialized] = auxSquare2.posSubRooms[i];
+                posRooms[rInitialized] = auxSquare2.PosSubRooms[i];
                 rInitialized++;
             }
         }        

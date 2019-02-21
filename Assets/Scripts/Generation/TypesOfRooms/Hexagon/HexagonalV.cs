@@ -32,7 +32,7 @@ public class HexagonalV : Room {
         PosSubRooms[2] = new Vector3(size, 0, sDiv2) + pos;
         PosSubRooms[3] = new Vector3(size, 0, -sDiv2) + pos;
         PosSubRooms[4] = new Vector3(0, 0, -sDiv2) + pos;
-        PosSubRooms[5] = new Vector3(-size, 0, sDiv2) + pos;
+        PosSubRooms[5] = new Vector3(-size, 0, -sDiv2) + pos;
 
         PosCorridors[0] = posRoom + new Vector3(-size, 0, size) + pos;
         PosCorridors[1] = posRoom + new Vector3(0, 0, size);
@@ -116,8 +116,9 @@ public class HexagonalV : Room {
 
         if (canCreateOcto[0] && !canCreateSq2[0] || !canCreateSq2[1]) { canCreateOcto[0] = false; }
         if (canCreateOcto[1] && !canCreateSq2[2] || !canCreateSq2[3]) { canCreateOcto[1] = false; }
-        
+
         //
+        for (int i = 0; i < 2; i++) canCreateHexa[i] = false;
         if (canCreateSq2[0] && canCreateSq2[1]) { CanCreateHexa[0] = true; }
         if (canCreateSq2[2] && canCreateSq2[3]) { CanCreateHexa[1] = true; }
 

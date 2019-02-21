@@ -20,7 +20,7 @@ public class Square : Room
             canCreateSq[i] = true;
             canCreateHexa[i] = false;
             canCreateOcto[i] = true;
-            corridors[i] = false;            
+            corridors[i] = false;
         }
         for (int i = 0; i <= 11; i++) { canCreateRect[i] = true; }
         for (int i = 0; i <= 7; i++) { canCreateSq2[i] = true; }
@@ -33,15 +33,14 @@ public class Square : Room
     }
 
     public override void ActualizeCanCreate(ref Vector3[] posRooms, int posInit)
-    {
-
+    {        
         for (int i = 0; i < posInit; i++)
-        {
+        {            
             //Square
-            if (posRoom + new Vector3(0, 0, size) == posRooms[i]) canCreateSq[0] = false;
-            if (posRoom + new Vector3(size, 0, 0) == posRooms[i]) canCreateSq[1] = false;
-            if (posRoom + new Vector3(0, 0, -size) == posRooms[i]) canCreateSq[2] = false;
-            if (posRoom + new Vector3(-size, 0, 0) == posRooms[i]) canCreateSq[3] = false;
+            if (posRoom + new Vector3(0, 0, size) == posRooms[i]) { canCreateSq[0] = false; }
+            if (posRoom + new Vector3(size, 0, 0) == posRooms[i]) {canCreateSq[1] = false; }
+            if (posRoom + new Vector3(0, 0, -size) == posRooms[i]) { canCreateSq[2] = false; }
+            if (posRoom + new Vector3(-size, 0, 0) == posRooms[i]){ canCreateSq[3] = false;}
 
             //RectangleVH
             if (canCreateSq[0])
@@ -127,17 +126,17 @@ public class Square : Room
                 posRoom + new Vector3(-sBy3, 0, 0) == posRooms[i] ||
                 posRoom + new Vector3(-sBy3, 0, size) == posRooms[i]) { canCreateOcto[3] = false; }
         }
-
         if (canCreateOcto[0] && !canCreateSq2[0] || !canCreateSq2[1]) { canCreateOcto[0] = false; }
         if (canCreateOcto[1] && !canCreateSq2[2] || !canCreateSq2[3]) { canCreateOcto[1] = false; }
         if (canCreateOcto[2] && !canCreateSq2[4] || !canCreateSq2[5]) { canCreateOcto[2] = false; }
         if (canCreateOcto[3] && !canCreateSq2[6] || !canCreateSq2[7]) { canCreateOcto[3] = false; }
-        
+
         //Hexa
-        if (canCreateSq2[0] && canCreateSq2[1]) { CanCreateHexa[0] = true; }
-        if (canCreateSq2[2] && canCreateSq2[3]) { CanCreateHexa[1] = true; }
-        if (canCreateSq2[4] && canCreateSq2[5]) { CanCreateHexa[2] = true; }
-        if (canCreateSq2[6] && canCreateSq2[7]) { CanCreateHexa[3] = true; }
+        for (int i = 0; i < 4; i++) canCreateHexa[i] = false;
+        if (canCreateSq2[0] && canCreateSq2[1]) { canCreateHexa[0] = true; }
+        if (canCreateSq2[2] && canCreateSq2[3]) { canCreateHexa[1] = true; }
+        if (canCreateSq2[4] && canCreateSq2[5]) { canCreateHexa[2] = true; }
+        if (canCreateSq2[6] && canCreateSq2[7]) { canCreateHexa[3] = true; }
 
 
         posibilitiesSq = 0;
@@ -154,6 +153,7 @@ public class Square : Room
         }
         for (int i = 0; i <= 11; i++) if (canCreateRect[i]) posibilitiesRect++;
         for (int i = 0; i <= 7; i++) if (canCreateSq2[i]) posibilitiesSq2++;
+        
 
     }
     public override void ActualizeCorridors(ref Vector3[] posCorridors, int posCInit)

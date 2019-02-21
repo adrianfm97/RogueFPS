@@ -25,10 +25,10 @@ public class Square2 : Room
         for (int i = 0; i <= 19; i++) { canCreateRect[i] = true; }
         for (int i = 0; i <= 11; i++) { canCreateSq2[i] = true; }
 
-        _posSubRooms[0] = new Vector3(sDiv2, 0, sDiv2) + pos;
-        _posSubRooms[1] = new Vector3(sDiv2, 0, -sDiv2) + pos;
-        _posSubRooms[2] = new Vector3(-sDiv2, 0, -sDiv2) + pos;
-        _posSubRooms[3] = new Vector3(-sDiv2, 0, sDiv2) + pos;
+        PosSubRooms[0] = new Vector3(-sDiv2, 0, sDiv2) + pos;
+        PosSubRooms[1] = new Vector3(sDiv2,  0, sDiv2) + pos;
+        PosSubRooms[2] = new Vector3(sDiv2,  0, -sDiv2) + pos;
+        PosSubRooms[3] = new Vector3(-sDiv2, 0, -sDiv2) + pos;
 
         gameObjectScene = GameObject.Instantiate(properties.Square2, pos,
                                             Quaternion.identity, properties.Rooms.transform);
@@ -201,7 +201,8 @@ public class Square2 : Room
         if (canCreateOcto[6] && !canCreateSq2[9]  || !canCreateSq2[10]) { canCreateOcto[6] = false; }
         if (canCreateOcto[7] && !canCreateSq2[10] || !canCreateSq2[11]) { canCreateOcto[7] = false; }
 
-
+        //Hexa
+        for (int i = 0; i < 8; i++) canCreateHexa[i] = false;
         if (canCreateSq2[0] && canCreateSq2[1])   { CanCreateHexa[0] = true; }
         if (canCreateSq2[1] && canCreateSq2[2])   { CanCreateHexa[1] = true; }
         if (canCreateSq2[3] && canCreateSq2[4])   { CanCreateHexa[2] = true; }
@@ -731,9 +732,5 @@ public class Square2 : Room
         aux.transform.parent = gameObjectScene.transform;
     }
 
-    public Vector3[] posSubRooms
-    {
-        get { return _posSubRooms; }
-        set { _posSubRooms = value; }
-    }
+    public Vector3[] PosSubRooms { get => _posSubRooms; set => _posSubRooms = value; }
 }

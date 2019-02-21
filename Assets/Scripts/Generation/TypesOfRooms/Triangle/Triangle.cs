@@ -65,7 +65,7 @@ public class Triangle : Room
         switch (cardinal)
         {
             case 0:
-                aux.vector3 = PosCorridors[0];
+                aux.vector3 = posCorridors[0];
                 aux.quaternion = new Quaternion(0, -180, 0, 0);
                 break;
             case 1:

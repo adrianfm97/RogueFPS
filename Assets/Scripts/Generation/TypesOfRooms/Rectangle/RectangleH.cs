@@ -163,7 +163,7 @@ public class RectangleH : Room
         if (canCreateOcto[5] && !canCreateSq2[8] || !canCreateSq2[9]) { canCreateOcto[5] = false; }
 
         //Hexa
-
+        for (int i = 0; i < 6; i++) canCreateHexa[i] = false;
         if (canCreateSq2[0] && canCreateSq2[1]) CanCreateHexa[0] = true;
         if (canCreateSq2[1] && canCreateSq2[2]) CanCreateHexa[1] = true;
         if (canCreateSq2[3] && canCreateSq2[4]) CanCreateHexa[2] = true;

@@ -28,11 +28,11 @@ public class HexagonalH : Room
         for (int i = 0; i < 4; i++) { canCreateSq2[i] = true; }
 
         posSubRooms[0] = new Vector3(-sDiv2, 0, size) + pos;
-        posSubRooms[1] = new Vector3(sDiv2, 0, size) + pos;
+        posSubRooms[1] = new Vector3(sDiv2,  0, size) + pos;
         posSubRooms[2] = new Vector3(-sDiv2, 0, 0) + pos;
-        posSubRooms[3] = new Vector3(sDiv2, 0, 0) + pos;
-        posSubRooms[4] = new Vector3(-sDiv2, 0, -size) + pos;
-        posSubRooms[5] = new Vector3(-sDiv2, 0, size) + pos;
+        posSubRooms[3] = new Vector3(sDiv2,  0, 0) + pos;
+        posSubRooms[4] = new Vector3(sDiv2,  0, -size) + pos;
+        posSubRooms[5] = new Vector3(-sDiv2, 0, -size) + pos;
 
         posCorridors[0] = posRoom + new Vector3(-sDiv2, 0, sBy1dot5);
         posCorridors[1] = posRoom + new Vector3(size, 0, size);
@@ -112,7 +112,8 @@ public class HexagonalH : Room
         if(canCreateOcto[0] && !canCreateSq2[0] || !canCreateSq2[1]) { canCreateOcto[0] = false; }
         if (canCreateOcto[1] && !canCreateSq2[2] || !canCreateSq2[3]) { canCreateOcto[1] = false; }
 
-        //
+        //Hexa
+        for (int i = 0; i < 2; i++) canCreateHexa[i] = false;
         if (canCreateSq2[0] && canCreateSq2[1]) { CanCreateHexa[0] = true; }
         if (canCreateSq2[2] && canCreateSq2[3]) { CanCreateHexa[1] = true; }
 
@@ -166,7 +167,7 @@ public class HexagonalH : Room
         VectArrayBoolInt auxStruct;
         auxStruct.arrayBool = new bool[6];
         auxStruct.vector3 = new Vector3(0, 0, 0);
-        auxStruct.innt = 1;
+        auxStruct.innt = 2;
 
         switch (cardinal)
         {
@@ -174,7 +175,7 @@ public class HexagonalH : Room
                 auxStruct.vector3 = (new Vector3(posRoom.x + sBy1dot5, posRoom.y,
                                                  posRoom.z + sDiv2));
                 auxStruct.arrayBool = new bool[] { false, false, false, false, true, false };
-                auxStruct.innt = 2;
+                auxStruct.innt = 1;
                 break;
             case 1:
                 auxStruct.vector3 = (new Vector3(posRoom.x + sBy2, posRoom.y,
@@ -185,23 +186,25 @@ public class HexagonalH : Room
                 auxStruct.vector3 = (new Vector3(posRoom.x + sBy1dot5, posRoom.y,
                                                  posRoom.z + -sDiv2));
                 auxStruct.arrayBool = new bool[] { false, false, false, false, false, true };
-                auxStruct.innt = 2;
+                auxStruct.innt = 1;
                 break;
             case 3:
                 auxStruct.vector3 = (new Vector3(posRoom.x - sBy1dot5, posRoom.y,
                                                  posRoom.z - sDiv2));
                 auxStruct.arrayBool = new bool[] { false, true, false, false, false, false };
+                auxStruct.innt = 1;
                 break;
             case 4:
                 auxStruct.vector3 = (new Vector3(posRoom.x + sBy2, posRoom.y,
                                                  posRoom.z));
                 auxStruct.arrayBool = new bool[] { false, false, true, false, false, false };
-                auxStruct.innt = 2;
+    
                 break;
             case 5:
                 auxStruct.vector3 = (new Vector3(posRoom.x - sBy1dot5, posRoom.y,
                                                  posRoom.z + sDiv2));
                 auxStruct.arrayBool = new bool[] { false, false, true, false, false, false };
+                auxStruct.innt = 1;
                 break;            
         }
         return auxStruct;

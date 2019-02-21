@@ -14,9 +14,9 @@ public class Generation : MonoBehaviour {
 
         VectArrayBoolInt aux;
 
-        Floor = new Floor();
+        floor = new Floor();
 
-        Floor.AddRoom(new Square(new Vector3(0, 0, 0),
+        floor.AddRoom(new Square(new Vector3(0, 0, 0),
                                  new bool[] { false, false, true, false }, 0));
         
         for (int i = 1; i < properties.NumRoom - 1; i++)
@@ -26,50 +26,51 @@ public class Generation : MonoBehaviour {
             switch (aux.innt)
             {
                 case 0: 
-                    Floor.AddRoom(new Square(aux.vector3, aux.arrayBool, i));
+                    floor.AddRoom(new Square(aux.vector3, aux.arrayBool, i));
                     break;
                 case 1: 
-                    Floor.AddRoom(new RectangleV(aux.vector3, aux.arrayBool, i));
+                    floor.AddRoom(new RectangleV(aux.vector3, aux.arrayBool, i));
                     break;
                 case 2:
-                    Floor.AddRoom(new RectangleH(aux.vector3, aux.arrayBool, i));
+                    floor.AddRoom(new RectangleH(aux.vector3, aux.arrayBool, i));
                     break;
                 case 3: 
-                    Floor.AddRoom(new Square2(aux.vector3, aux.arrayBool, i));
+                    floor.AddRoom(new Square2(aux.vector3, aux.arrayBool, i));
                     break;
                 case 4:
-                    Floor.AddRoom(new HexagonalV(aux.vector3, aux.arrayBool, i));
+                    floor.AddRoom(new HexagonalV(aux.vector3, aux.arrayBool, i));
                     break;
                 case 5:
-                    Floor.AddRoom(new HexagonalH(aux.vector3, aux.arrayBool, i));
+                    floor.AddRoom(new HexagonalH(aux.vector3, aux.arrayBool, i));
                     break;
                 case 10:
-                    Floor.AddRoom(new Triangle(aux.vector3, aux.arrayBool,
+                    floor.AddRoom(new Triangle(aux.vector3, aux.arrayBool,
                                         i, Quaternion.identity));
                     break;
                 case 11: 
-                    Floor.AddRoom(new Triangle(aux.vector3, aux.arrayBool,
+                    floor.AddRoom(new Triangle(aux.vector3, aux.arrayBool,
                                         i, Quaternion.Euler(new Vector3(0, 90, 0))));
                     break;
                 case 12:
-                    Floor.AddRoom(new Triangle(aux.vector3, aux.arrayBool,
+                    floor.AddRoom(new Triangle(aux.vector3, aux.arrayBool,
                                         i, Quaternion.Euler(new Vector3(0, 180, 0))));
                     break;
                 case 13:
-                    Floor.AddRoom(new Triangle(aux.vector3, aux.arrayBool,
+                    floor.AddRoom(new Triangle(aux.vector3, aux.arrayBool,
                                         i, Quaternion.Euler(new Vector3(0, 270, 0))));
                     break;
             }
         }
-        BossRoomSelector();
+        //Debugger();
+        aux = BossRoomSelector();
         //Floor.AddRoom(new Octagon(aux.vector3, aux.arrayBool, properties.NumRoom));
-        Floor.AddCorridors();        
-        Floor.AddWalls();
+        floor.AddCorridors();        
+        floor.AddWalls();
     }
 
     private int RoomSelector(int num) {
 
-        Room room = Floor.Rooms[num];
+        Room room = floor.Rooms[num];
         if (room is Triangle) return RoomSelector(num - 1);        
 
         room.ActualizeCanCreate(ref floor.posRooms, floor.RInitialized);        
@@ -199,7 +200,7 @@ public class Generation : MonoBehaviour {
    
     private int TypeOfRoom(int num) {
 
-        Room room = Floor.Rooms[num];
+        Room room = floor.Rooms[num];
         int rand = Random.Range(0, 100);
 
         if (room.PosibilitiesSq2 != 0
@@ -217,17 +218,16 @@ public class Generation : MonoBehaviour {
         else return 0;
     }
 
-    private void BossRoomSelector() {
+    private VectArrayBoolInt BossRoomSelector() {
         int[] furtherRooms = { 0, 0, 0 };
         float[] lengthRooms = { 0, 0, 0 };
 
         foreach (Room room in floor.Rooms) {
             if (room is Triangle) continue;
-            room.ActualizeCanCreate(ref Floor.posRooms, Floor.rInitialized);
-            Debug.Log(room.Num + ": Octo-" + room.PosibilitiesOcto + "  Sq2-" + room.PosibilitiesSq2);
-            /*
+            room.ActualizeCanCreate(ref Floor.posRooms, Floor.rInitialized);            
+            
             float lengthRoom = room.PosRoom.magnitude;
-            Debug.Log(lengthRoom);
+            Debug.Log(room.Num + " " +room.PosibilitiesHexa );
             if (room.PosibilitiesOcto > 0 && lengthRoom > lengthRooms[0]) {
                 furtherRooms[0] = room.Num;
                 lengthRooms[0] = room.PosRoom.magnitude;
@@ -239,11 +239,9 @@ public class Generation : MonoBehaviour {
             else if (room.PosibilitiesOcto > 0 && lengthRoom > lengthRooms[2]) {
                 furtherRooms[2] = room.Num;
                 lengthRooms[2] = room.PosRoom.magnitude;
-            }*/
+            }
         }
-       /* Room preBossRoom = floor.Rooms[furtherRooms[(int) Random.Range(0, 3)]];
-
-        Debug.Log(preBossRoom.Num);
+        Room preBossRoom = floor.Rooms[furtherRooms[(int) Random.Range(0, 3)]];
 
         int octoMax = 4;
         if (preBossRoom is RectangleV || preBossRoom is RectangleH) octoMax = 6;
@@ -255,8 +253,33 @@ public class Generation : MonoBehaviour {
         do { rand = Random.Range(0, octoMax); i++; if (i > 10) break; }
         while (!preBossRoom.CanCreateOcto[rand]);
         Debug.Log(furtherRooms[0] +" "+furtherRooms[1]+" "+furtherRooms[2]);
-        return preBossRoom.RectCreator(rand);*/
+        return preBossRoom.RectCreator(rand);
     }
+
+    /*private void Debugger()
+    {
+        //for (int i = 0; i < floor.rInitialized; i++) Debug.Log(floor.posRooms[i]);
+
+        foreach (Room room in floor.Rooms)
+        {
+            if ((room is Square))
+            {
+
+                room.ActualizeCanCreate(ref floor.posRooms, floor.rInitialized);
+
+                Debug.Log("Room" + room.Num);
+                Debug.Log("      Sq:  " + room.PosibilitiesSq);                
+                Debug.Log(cadena);
+                //Debug.Log("      Rect:" + room.PosibilitiesRect);
+                //Debug.Log("      Sq2: " + room.PosibilitiesSq2);
+                //Debug.Log("      Octo:" + room.PosibilitiesOcto);
+                //Debug.Log("      Hexa:" + room.PosibilitiesHexa);
+                Debug.Log("-----------------");
+            }
+        }
+        
+
+    }*/
 
     public Floor Floor
     {
