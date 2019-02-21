@@ -63,7 +63,7 @@ public class Generation : MonoBehaviour {
         }
         //Debugger();
         aux = BossRoomSelector();
-        //Floor.AddRoom(new Octagon(aux.vector3, aux.arrayBool, properties.NumRoom));
+        floor.AddRoom(new Octagon(aux.vector3, aux.arrayBool, properties.NumRoom));
         floor.AddCorridors();        
         floor.AddWalls();
     }
@@ -227,12 +227,31 @@ public class Generation : MonoBehaviour {
             room.ActualizeCanCreate(ref Floor.posRooms, Floor.rInitialized);            
             
             float lengthRoom = room.PosRoom.magnitude;
-            Debug.Log(room.Num + " " +room.PosibilitiesHexa );
+            Debug.Log(room.Num + "  Octo: " +room.PosibilitiesOcto + "  Hexa: " + room.PosibilitiesHexa);
+
             if (room.PosibilitiesOcto > 0 && lengthRoom > lengthRooms[0]) {
+
+                if (lengthRooms[1] > lengthRooms[0]) {
+                    furtherRooms[1] = furtherRooms[0];
+                    lengthRooms[1] = lengthRooms[0];
+                }
+                else if (lengthRooms[0] > lengthRooms[2])
+                {
+                    furtherRooms[2] = furtherRooms[0];
+                    lengthRooms[2] = lengthRooms[0];
+                }
+
                 furtherRooms[0] = room.Num;
-                lengthRooms[0] = room.PosRoom.magnitude;
+                lengthRooms[0] = room.PosRoom.magnitude;                
             }
-            else if (room.PosibilitiesOcto > 0 && lengthRoom > lengthRooms[1]) {
+            else if (room.PosibilitiesOcto > 0 && lengthRoom > lengthRooms[1])
+            {
+                if (lengthRooms[1] > lengthRooms[2])
+                {
+                    furtherRooms[2] = furtherRooms[1];
+                    lengthRooms[2] = lengthRooms[1];
+                }
+
                 furtherRooms[1] = room.Num;
                 lengthRooms[1] = room.PosRoom.magnitude;
             }
@@ -241,7 +260,9 @@ public class Generation : MonoBehaviour {
                 lengthRooms[2] = room.PosRoom.magnitude;
             }
         }
-        Room preBossRoom = floor.Rooms[furtherRooms[(int) Random.Range(0, 3)]];
+        Room preBossRoom;
+        do { preBossRoom = floor.Rooms[furtherRooms[(int)Random.Range(0, 3)]]; }
+        while (preBossRoom.PosibilitiesOcto == 0 && preBossRoom.Num == 0);
 
         int octoMax = 4;
         if (preBossRoom is RectangleV || preBossRoom is RectangleH) octoMax = 6;
@@ -249,11 +270,11 @@ public class Generation : MonoBehaviour {
         else if (preBossRoom is Square2) octoMax = 8;
 
         int rand;
-        int i = 0;
-        do { rand = Random.Range(0, octoMax); i++; if (i > 10) break; }
+        do { rand = Random.Range(0, octoMax); }
         while (!preBossRoom.CanCreateOcto[rand]);
+        Debug.Log("canCreateOcto["+rand+"]");
         Debug.Log(furtherRooms[0] +" "+furtherRooms[1]+" "+furtherRooms[2]);
-        return preBossRoom.RectCreator(rand);
+        return preBossRoom.OctoCreator(rand);
     }
 
     /*private void Debugger()

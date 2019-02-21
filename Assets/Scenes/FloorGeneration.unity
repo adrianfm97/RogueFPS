@@ -198,10 +198,10 @@ MonoBehaviour:
   numRoom: 20
   size: 25
   probCorrid: 10
-  probRect: 40
-  probSq2: 0
-  probTri: 0
-  probHexa: 40
+  probRect: 30
+  probSq2: 20
+  probTri: 20
+  probHexa: 10
   sWall: {fileID: 1156021470778048, guid: f714471a2483c474bae809546d85fc52, type: 3}
   sWallC: {fileID: 1003929630096588, guid: 4252264296c44244cb25f61a3932176e, type: 3}
   s2Wall: {fileID: 1595625408933450, guid: 404ce697d262c6448b51bd5c7d0f8608, type: 3}

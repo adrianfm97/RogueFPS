@@ -131,7 +131,7 @@ public class Floor {
             //Main Corridor
             cardinal = 0;
             canCreate = true;
-
+            if (room is Octagon) continue;
             if (room is Triangle)
             {
                 while (!room.PrevRoom[cardinal]) cardinal++;
@@ -221,6 +221,7 @@ public class Floor {
 
     public void AddWalls() {
         foreach (Room room in rooms) {
+            if (room is Octagon) continue;
             if (!(room is Triangle)) room.ActualizeCorridors(ref posCorr, nCInitialized); 
             if(!(room is HexagonalH || room is HexagonalV)) room.WallsCreator();
 
