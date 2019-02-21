@@ -42,6 +42,8 @@ public abstract class Room
         sBy2 = size * 2;
         sBy2Dot5 = size * 2.5f;
         sDiv2 = size / 2f;
+        sBy3 = size * 3;
+        sBy3Dot5 = size * 3.5f;
     }
 
     public void AddColindantRoom(int num)

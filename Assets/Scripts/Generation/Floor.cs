@@ -76,8 +76,8 @@ public class Floor {
                 rInitialized++;
             }
             for (int i = 0; i <= 5; i++) {
-                    posNoCorr[nCInitialized] = auxHexagonalV.PosCorridors[i];
-                    nCInitialized++;                
+                posNoCorr[nCInitialized] = auxHexagonalV.PosCorridors[i];
+                nCInitialized++;                
             }
         }
         else if (r is HexagonalH) {
@@ -131,36 +131,33 @@ public class Floor {
             //Main Corridor
             cardinal = 0;
             canCreate = true;
-            if (room is Octagon) continue;
+            
             if (room is Triangle)
             {
                 while (!room.PrevRoom[cardinal]) cardinal++;
                 aux = room.CorridorCreator(cardinal);
 
                 for (int j = 0; j < nCInitialized; j++) {
-                    if (canCreate && aux.vector3 == posNoCorr[j]) canCreate = false;
+                    if (aux.vector3 == posNoCorr[j]) continue;
+                }
+                
+                posCorr[cInitialized] = aux.vector3;
+                posNoCorr[nCInitialized] = aux.vector3;
+                cInitialized++;
+                nCInitialized++;
+
+                if (aux.quaternion.eulerAngles.y == 90 ||
+                    aux.quaternion.eulerAngles.y == 270) {
+                    Corridors.Add(new CorrH(aux.vector3, aux.quaternion, cInitialized));
+                }
+                else {
+                    Corridors.Add(new CorrV(aux.vector3, aux.quaternion, cInitialized));
                 }
 
-                if (canCreate) {
-                    posCorr[cInitialized] = aux.vector3;
-                    posNoCorr[nCInitialized] = aux.vector3;
-                    cInitialized++;
-                    nCInitialized++; 
-
-                    if (aux.quaternion.eulerAngles.y == 90 ||
-                        aux.quaternion.eulerAngles.y == 270) {
-                        Corridors.Add(new CorrH(aux.vector3, aux.quaternion, cInitialized));
-                    }
-                    else {
-                        Corridors.Add(new CorrV(aux.vector3, aux.quaternion, cInitialized));
-                    }
-                    
-                    
-                }
                 continue;
-            }
-            
-            room.ActualizeCanCreate(ref posRooms, rInitialized); 
+            }           
+
+            if (!(room is Octagon)) room.ActualizeCanCreate(ref posRooms, rInitialized); 
             
             while (!room.PrevRoom[cardinal]) cardinal++;
             aux = room.CorridorCreator(cardinal);
@@ -182,10 +179,9 @@ public class Floor {
                 }
                 else {
                     Corridors.Add(new CorrV(aux.vector3, aux.quaternion, cInitialized));
-                }
-
-                              
+                }                              
             }
+            if (room is Octagon) continue;
 
             //Other Corridors            
             
@@ -224,7 +220,6 @@ public class Floor {
             if (room is Octagon) continue;
             if (!(room is Triangle)) room.ActualizeCorridors(ref posCorr, nCInitialized); 
             if(!(room is HexagonalH || room is HexagonalV)) room.WallsCreator();
-
         }
     }
 

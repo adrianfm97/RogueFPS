@@ -227,7 +227,6 @@ public class Generation : MonoBehaviour {
             room.ActualizeCanCreate(ref Floor.posRooms, Floor.rInitialized);            
             
             float lengthRoom = room.PosRoom.magnitude;
-            Debug.Log(room.Num + "  Octo: " +room.PosibilitiesOcto + "  Hexa: " + room.PosibilitiesHexa);
 
             if (room.PosibilitiesOcto > 0 && lengthRoom > lengthRooms[0]) {
 
@@ -272,8 +271,7 @@ public class Generation : MonoBehaviour {
         int rand;
         do { rand = Random.Range(0, octoMax); }
         while (!preBossRoom.CanCreateOcto[rand]);
-        Debug.Log("canCreateOcto["+rand+"]");
-        Debug.Log(furtherRooms[0] +" "+furtherRooms[1]+" "+furtherRooms[2]);
+
         return preBossRoom.OctoCreator(rand);
     }
 

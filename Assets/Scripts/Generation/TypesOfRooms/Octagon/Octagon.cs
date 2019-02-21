@@ -71,7 +71,28 @@ public class Octagon : Room
     }
     public override VectQuater CorridorCreator(int cardinal)
     {
-        throw new System.NotImplementedException();
+        VectQuater aux = new VectQuater();
+
+        switch (cardinal)
+        {
+            case 0:
+                aux.vector3 = posRoom + new Vector3(0, 0, sBy1dot5);
+                aux.quaternion = Quaternion.identity;
+                break;
+            case 1:
+                aux.vector3 = posRoom + new Vector3(sBy1dot5, 0, 0);
+                aux.quaternion = new Quaternion(0, 270, 0, 270);
+                break;
+            case 2:
+                aux.vector3 = posRoom + new Vector3(0, 0, -sBy1dot5);
+                aux.quaternion = Quaternion.identity;
+                break;
+            case 3:
+                aux.vector3 = posRoom + new Vector3(-sBy1dot5, 0, 0);
+                aux.quaternion = new Quaternion(0, 270, 0, 270);
+                break;           
+        }
+        return aux;
     }
 
     public override void WallsCreator()
