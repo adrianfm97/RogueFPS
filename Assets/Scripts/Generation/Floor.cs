@@ -18,7 +18,7 @@ public class Floor {
 
         rooms = new List<Room>(); Corridors = new List<Corridor>();
 
-        posRooms     = new Vector3[properties.NumRoom * 4 + 1];
+        posRooms     = new Vector3[properties.NumRoom * 6 + 3];
         posCorr = new Vector3[properties.NumRoom * 8];
         posNoCorr = new Vector3[properties.NumRoom * 8];
 
@@ -75,7 +75,7 @@ public class Floor {
                 posRooms[rInitialized] = auxHexagonalV.PosSubRooms[i];
                 rInitialized++;
             }
-            for (int i = 0; i <= 5; i++) {
+            for (int i = 0; i <= 7; i++) {
                 posNoCorr[nCInitialized] = auxHexagonalV.PosCorridors[i];
                 nCInitialized++;                
             }
@@ -87,7 +87,7 @@ public class Floor {
                 posRooms[rInitialized] = auxHexagonalH.PosSubRooms[i];
                 rInitialized++;
             }
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i <= 7; i++)
             {
                 posNoCorr[nCInitialized] = auxHexagonalH.PosCorridors[i];
                 nCInitialized++;
