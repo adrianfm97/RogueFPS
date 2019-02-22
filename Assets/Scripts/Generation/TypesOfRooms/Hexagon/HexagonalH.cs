@@ -34,14 +34,17 @@ public class HexagonalH : Room
         posSubRooms[4] = new Vector3(sDiv2,  0, -size) + pos;
         posSubRooms[5] = new Vector3(-sDiv2, 0, -size) + pos;
 
-        posCorridors[0] = posRoom + new Vector3(-size, 0, sBy1dot5) + pos;
+        posCorridors[0] = posRoom + new Vector3(-size, 0, size);
         posCorridors[1] = posRoom + new Vector3(-sDiv2, 0, sBy1dot5);
-        posCorridors[2] = posRoom + new Vector3(sDiv2, 0, sBy1dot5) + pos;
-        posCorridors[3] = posRoom + new Vector3(size, 0, sBy1dot5);
-        posCorridors[4] = posRoom + new Vector3(size, 0, -sBy1dot5) + pos;
+        posCorridors[2] = posRoom + new Vector3(size, 0, size);
+        posCorridors[3] = posRoom + new Vector3(sDiv2, 0, sBy1dot5);
+        posCorridors[4] = posRoom + new Vector3(size, 0, -size);
         posCorridors[5] = posRoom + new Vector3(sDiv2, 0, -sBy1dot5);
-        posCorridors[6] = posRoom + new Vector3(-sDiv2, 0, -sBy1dot5) + pos;
-        posCorridors[7] = posRoom + new Vector3(-size, 0, -sBy1dot5);
+        posCorridors[6] = posRoom + new Vector3(-size, 0, -size);
+        posCorridors[7] = posRoom + new Vector3(-sDiv2, 0, -sBy1dot5);
+
+        Debug.Log(this.num);
+        for (int i = 0; i < 8; i++) { Debug.Log("   " + posCorridors[i]); }
 
         gameObjectScene = GameObject.Instantiate(properties.Hexagonal, pos,
                                             Quaternion.identity, properties.Rooms.transform);

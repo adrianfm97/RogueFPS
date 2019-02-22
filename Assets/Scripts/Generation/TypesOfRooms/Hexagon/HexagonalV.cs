@@ -34,14 +34,15 @@ public class HexagonalV : Room {
         posSubRooms[4] = new Vector3(0, 0, -sDiv2) + pos;
         posSubRooms[5] = new Vector3(-size, 0, -sDiv2) + pos;
 
-        posCorridors[0] = posRoom + new Vector3(-size, 0, sBy1dot5) + pos;
-        posCorridors[1] = posRoom + new Vector3(-sDiv2, 0, sBy1dot5);
-        posCorridors[2] = posRoom + new Vector3(sDiv2, 0, sBy1dot5) + pos;
-        posCorridors[3] = posRoom + new Vector3(size, 0, sBy1dot5);
-        posCorridors[4] = posRoom + new Vector3(size, 0, -sBy1dot5) + pos;
-        posCorridors[5] = posRoom + new Vector3(sDiv2, 0, -sBy1dot5);
-        posCorridors[6] = posRoom + new Vector3(-sDiv2, 0, -sBy1dot5) + pos;
-        posCorridors[7] = posRoom + new Vector3(-size, 0, -sBy1dot5);
+        posCorridors[0] = posRoom + new Vector3(-sBy1dot5, 0, sDiv2);
+        posCorridors[1] = posRoom + new Vector3(-size, 0, size);
+        posCorridors[2] = posRoom + new Vector3(size, 0, size);
+        posCorridors[3] = posRoom + new Vector3(sBy1dot5, 0, sDiv2);
+        posCorridors[4] = posRoom + new Vector3(sBy1dot5, 0, -sDiv2);
+        posCorridors[5] = posRoom + new Vector3(size, 0, -size);
+        posCorridors[6] = posRoom + new Vector3(-size, 0, -size);
+        posCorridors[7] = posRoom + new Vector3(-sBy1dot5, 0, -sDiv2);
+
 
         gameObjectScene = GameObject.Instantiate(properties.Hexagonal, pos,
                                             Quaternion.Euler(0, 90, 0),
@@ -189,7 +190,7 @@ public class HexagonalV : Room {
             case 2:
                 auxStruct.vector3 = (new Vector3(posRoom.x + sDiv2, posRoom.y,
                                                  posRoom.z + sBy1dot5));
-                auxStruct.arrayBool = new bool[] { false, false, false, false, false, true };
+                auxStruct.arrayBool = new bool[] { false, false, false, false, true, false };
                 auxStruct.innt = 2;
                 break;
             case 3:
