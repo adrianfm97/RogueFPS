@@ -97,7 +97,7 @@ public class Octagon : Room
 
     public override void WallsCreator()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public Vector3[] PosCorridors { get => posCorridors; set => posCorridors = value; }

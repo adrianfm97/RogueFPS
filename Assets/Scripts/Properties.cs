@@ -27,7 +27,9 @@ public class Properties : MonoBehaviour
     //Walls
     [SerializeField]
     private GameObject sWall, sWallC, s2Wall, s2WallCR, s2Wall2C, s2WallCL,
-                      rShortWall, rWallC, rLargeWall, rWallCL, rWallCR, rWall2C, tWallC, tWallLat;
+                       rShortWall, rWallC, rLargeWall, rWallCL, rWallCR, rWall2C,
+                       tWallC, tWallLat, hexaWallC, hexaWallNC, hexaWalls,
+                       octaWallC, octaWallNC, octaWalls;
     //Floors
     [SerializeField]
     private GameObject square, square2, rectangleV, rectangleH, triangle, hexagonal, octagon, corridor;
@@ -517,6 +519,13 @@ public class Properties : MonoBehaviour
             octagon = value;
         }
     }
+
+    public GameObject HexaWallC { get => hexaWallC; set => hexaWallC = value; }
+    public GameObject HexaWallNC { get => hexaWallNC; set => hexaWallNC = value; }
+    public GameObject HexaWalls { get => hexaWalls; set => hexaWalls = value; }
+    public GameObject OctaWallC { get => octaWallC; set => octaWallC = value; }
+    public GameObject OctaWallNC { get => octaWallNC; set => octaWallNC = value; }
+    public GameObject OctaWalls { get => octaWalls; set => octaWalls = value; }
 }
 
 public struct VectArrayBoolInt

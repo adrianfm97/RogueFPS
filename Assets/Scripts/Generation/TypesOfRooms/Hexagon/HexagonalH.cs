@@ -337,7 +337,20 @@ public class HexagonalH : Room
     }
     public override void WallsCreator()
     {
-        throw new System.NotImplementedException();
+        GameObject aux;
+        if (corridors[0]) aux = GameObject.Instantiate(properties.HexaWallC,
+                                posRoom, Quaternion.identity);
+        else aux = GameObject.Instantiate(properties.HexaWallNC,
+                   posRoom, Quaternion.Euler(new Vector3(0, 180, 0)));
+        aux.transform.parent = gameObjectScene.transform;
+
+        if (corridors[1]) aux = GameObject.Instantiate(properties.HexaWallC,
+                                posRoom, Quaternion.Euler(new Vector3(0, 180, 0)));
+        else aux = GameObject.Instantiate(properties.HexaWallNC,
+                   posRoom, Quaternion.identity);
+        aux.transform.parent = gameObjectScene.transform;
+        aux = GameObject.Instantiate(properties.HexaWalls, posRoom, Quaternion.identity);
+        aux.transform.parent = gameObjectScene.transform;
     }
 
 

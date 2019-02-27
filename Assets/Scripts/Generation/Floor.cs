@@ -219,7 +219,7 @@ public class Floor {
         foreach (Room room in rooms) {
             if (room is Octagon) continue;
             if (!(room is Triangle)) room.ActualizeCorridors(ref posCorr, nCInitialized); 
-            if(!(room is HexagonalH || room is HexagonalV)) room.WallsCreator();
+            room.WallsCreator();
         }
     }
 

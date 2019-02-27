@@ -140,8 +140,8 @@ public class HexagonalV : Room {
     {
         for (int i = 0; i < posCorridors.Length; i++)
         {
-            if (posRoom + new Vector3(size, 0, 0) == posCorridors[i]) corridors[0] = true;
-            if (posRoom + new Vector3(-size, 0, 0) == posCorridors[i]) corridors[1] = true;
+            if (posRoom + new Vector3(0, 0, size) == posCorridors[i]) corridors[0] = true;
+            if (posRoom + new Vector3(0, 0, -size) == posCorridors[i]) corridors[1] = true;
         }
     }
 
@@ -335,7 +335,20 @@ public class HexagonalV : Room {
     }
     public override void WallsCreator()
     {
-        throw new System.NotImplementedException();
+        GameObject aux;
+        if (corridors[0]) aux = GameObject.Instantiate(properties.HexaWallC,
+                                posRoom, Quaternion.Euler(new Vector3(0, -90, 0)));
+        else aux = GameObject.Instantiate(properties.HexaWallNC,
+                   posRoom, Quaternion.Euler(new Vector3(0, 90, 0)));
+        aux.transform.parent = gameObjectScene.transform;
+
+        if (corridors[1]) aux = GameObject.Instantiate(properties.HexaWallC,
+                                posRoom, Quaternion.Euler(new Vector3(0, 90, 0)));
+        else aux = GameObject.Instantiate(properties.HexaWallNC,
+                   posRoom, Quaternion.Euler(new Vector3(0, -90, 0)));
+        aux.transform.parent = gameObjectScene.transform;
+        aux = GameObject.Instantiate(properties.HexaWalls, posRoom, Quaternion.Euler(new Vector3(0, 90, 0)));
+        aux.transform.parent = gameObjectScene.transform;
     }
 
     public Vector3[] PosSubRooms
