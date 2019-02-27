@@ -216,8 +216,7 @@ public class Floor {
     }
 
     public void AddWalls() {
-        foreach (Room room in rooms) {
-            if (room is Octagon) continue;
+        foreach (Room room in rooms) {            
             if (!(room is Triangle)) room.ActualizeCorridors(ref posCorr, nCInitialized); 
             room.WallsCreator();
         }

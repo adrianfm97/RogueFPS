@@ -11,6 +11,8 @@ public class Octagon : Room
 
         corridors = new bool[4];
 
+        for (int i = 0; i <= 3; i++) corridors[i] = false;
+
         PosSubRooms[0] = new Vector3(-size, 0, size) + pos;
         PosSubRooms[1] = new Vector3(0, 0, size) + pos;
         PosSubRooms[2] = new Vector3(size, 0, size) + pos;
@@ -42,7 +44,13 @@ public class Octagon : Room
     }
     public override void ActualizeCorridors(ref Vector3[] posCorridors, int posCInit)
     {
-        throw new System.NotImplementedException();
+        for (int i = 0; i < posCorridors.Length; i++)
+        {
+            if (posRoom + new Vector3(0, 0, sBy1dot5) == posCorridors[i]) corridors[0] = true;
+            if (posRoom + new Vector3(sBy1dot5, 0, 0) == posCorridors[i]) corridors[1] = true;
+            if (posRoom + new Vector3(0, 0, -sBy1dot5) == posCorridors[i]) corridors[2] = true;
+            if (posRoom + new Vector3(-sBy1dot5, 0, 0) == posCorridors[i]) corridors[3] = true;
+        }
     }
 
     public override VectArrayBoolInt SqCreator(int cardinal)
@@ -97,7 +105,33 @@ public class Octagon : Room
 
     public override void WallsCreator()
     {
-        
+        GameObject aux;
+        if (corridors[0]) aux = GameObject.Instantiate(properties.OctaWallC,
+                                posRoom, Quaternion.Euler(new Vector3(0, 180, 0)));
+        else aux = GameObject.Instantiate(properties.OctaWallNC,
+                   posRoom, Quaternion.Euler(new Vector3(0, 180, 0)));
+        aux.transform.parent = gameObjectScene.transform;
+
+        if (corridors[1]) aux = GameObject.Instantiate(properties.OctaWallC,
+                                posRoom, Quaternion.Euler(new Vector3(0, -90, 0)));
+        else aux = GameObject.Instantiate(properties.OctaWallNC,
+                   posRoom, Quaternion.Euler(new Vector3(0, -90, 0)));
+        aux.transform.parent = gameObjectScene.transform;
+
+        if (corridors[2]) aux = GameObject.Instantiate(properties.OctaWallC,
+                                posRoom, Quaternion.identity);
+        else aux = GameObject.Instantiate(properties.OctaWallNC,
+                   posRoom, Quaternion.identity);
+        aux.transform.parent = gameObjectScene.transform;
+
+        if (corridors[3]) aux = GameObject.Instantiate(properties.OctaWallC,
+                                posRoom, Quaternion.Euler(new Vector3(0, 90, 0)));
+        else aux = GameObject.Instantiate(properties.OctaWallNC,
+                   posRoom, Quaternion.Euler(new Vector3(0, 90, 0)));
+        aux.transform.parent = gameObjectScene.transform;
+
+        aux = GameObject.Instantiate(properties.OctaWalls, posRoom, Quaternion.identity);
+        aux.transform.parent = gameObjectScene.transform;
     }
 
     public Vector3[] PosCorridors { get => posCorridors; set => posCorridors = value; }
