@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
 	}
 	
-	void Update ()
+	void FixedUpdate ()
     {
         performMovement();
         performRotation();
@@ -63,4 +63,13 @@ public class PlayerMovement : MonoBehaviour {
         cam.transform.Rotate(- yRotation);
     }
 
+    public void headBobb(float _bobbingMovementX, float _bobbingMovementY)
+    {
+        Vector3 bobbingMovement = cam.transform.localPosition;
+        bobbingMovement.y = _bobbingMovementY;
+        bobbingMovement.x = _bobbingMovementX;
+        cam.transform.localPosition = bobbingMovement; 
+        
+    }
+    
 }
