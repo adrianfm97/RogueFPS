@@ -10,6 +10,8 @@ public class Generation : MonoBehaviour {
     private int pointerRoom = 0;    
 
     private void Awake() {
+        //var watch = System.Diagnostics.Stopwatch.StartNew();
+        
         properties = GameObject.FindObjectOfType<Properties>();
 
         VectArrayBoolInt aux;
@@ -61,11 +63,14 @@ public class Generation : MonoBehaviour {
                     break;
             }
         }
-        //Debugger();
         aux = BossRoomSelector();
         floor.AddRoom(new Octagon(aux.vector3, aux.arrayBool, properties.NumRoom));
         floor.AddCorridors();        
         floor.AddWalls();
+
+        //watch.Stop();
+        //var elapsedMs = watch.ElapsedMilliseconds;
+        //Debug.Log(elapsedMs);
     }
 
     private int RoomSelector(int num) {
@@ -273,32 +278,7 @@ public class Generation : MonoBehaviour {
         while (!preBossRoom.CanCreateOcto[rand]);
 
         return preBossRoom.OctoCreator(rand);
-    }
-
-    /*private void Debugger()
-    {
-        //for (int i = 0; i < floor.rInitialized; i++) Debug.Log(floor.posRooms[i]);
-
-        foreach (Room room in floor.Rooms)
-        {
-            if ((room is Square))
-            {
-
-                room.ActualizeCanCreate(ref floor.posRooms, floor.rInitialized);
-
-                Debug.Log("Room" + room.Num);
-                Debug.Log("      Sq:  " + room.PosibilitiesSq);                
-                Debug.Log(cadena);
-                //Debug.Log("      Rect:" + room.PosibilitiesRect);
-                //Debug.Log("      Sq2: " + room.PosibilitiesSq2);
-                //Debug.Log("      Octo:" + room.PosibilitiesOcto);
-                //Debug.Log("      Hexa:" + room.PosibilitiesHexa);
-                Debug.Log("-----------------");
-            }
-        }
-        
-
-    }*/
+    }   
 
     public Floor Floor
     {

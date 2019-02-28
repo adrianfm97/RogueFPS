@@ -22,6 +22,7 @@ public class TriangleFloor : MonoBehaviour {
        
         mesh.vertices = newVertices;
         mesh.triangles = newTriangles;
+        mesh.RecalculateNormals();
         GetComponent<MeshFilter>().mesh = mesh;
     }
 

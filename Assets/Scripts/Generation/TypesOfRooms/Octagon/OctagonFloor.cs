@@ -25,14 +25,15 @@ public class OctagonFloor : MonoBehaviour {
             new Vector3(-35, 0, 10),
             new Vector3(-35, 0, -10)
         };
-        newTriangles = new int[] {8, 1, 0, 8, 2, 1, 8, 3, 2,
-                                  8, 4, 3, 8, 5, 4, 8, 6, 5,
-                                  8, 7, 6, 8, 0, 7
+        newTriangles = new int[] {2, 1, 0, 3, 2, 0, 4, 3, 0,
+                                  5, 4, 0, 6, 5, 0, 7, 6, 0,
+                                  8, 7, 0, 1, 8, 0
         };
 
 
         mesh.vertices = newVertices;
         mesh.triangles = newTriangles;
+        mesh.RecalculateNormals();
         GetComponent<MeshFilter>().mesh = mesh;
     }
 }

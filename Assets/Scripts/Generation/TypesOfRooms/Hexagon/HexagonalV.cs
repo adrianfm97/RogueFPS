@@ -263,7 +263,7 @@ public class HexagonalV : Room {
                 auxStruct.vector3 = (new Vector3(posRoom.x,
                                                  posRoom.y, posRoom.z - sBy1dot5));
                 auxStruct.arrayBool = new bool[] { true, false, false, false };
-                auxStruct.innt = 13;
+                auxStruct.innt = 12;
                 break;
         }
         return auxStruct;

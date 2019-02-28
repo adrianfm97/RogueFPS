@@ -43,9 +43,6 @@ public class HexagonalH : Room
         posCorridors[6] = posRoom + new Vector3(-size, 0, -size);
         posCorridors[7] = posRoom + new Vector3(-sDiv2, 0, -sBy1dot5);
 
-        Debug.Log(this.num);
-        for (int i = 0; i < 8; i++) { Debug.Log("   " + posCorridors[i]); }
-
         gameObjectScene = GameObject.Instantiate(properties.Hexagonal, pos,
                                             Quaternion.identity, properties.Rooms.transform);
         gameObjectScene.name = "Room" + n;
